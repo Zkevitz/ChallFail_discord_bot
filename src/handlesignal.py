@@ -1,7 +1,7 @@
 import signal
 import sys
 
-def signal_handler(sig, frame):
+def signal_handler(sig, frame) -> None:
     print('Arrêt du bot...')
     sys.exit(0)
 

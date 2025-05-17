@@ -1,47 +1,19 @@
 # Environnement virtuel
 botDofus/
-venv/
-env/
-ENV/
 
 # Fichiers Python
 __pycache__/
-*.py[cod]
-*$py.class
-*.so
-.Python
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
 
 # Fichiers de configuration sensibles
 .env
-config.json
-*.pem
-*.key
 
 # Logs et bases de données
-*.log
-*.sqlite
-*.db
-db/*.txt
-db/backup/
 
-# Images et fichiers média (sauf si vous voulez les suivre)
-# Décommentez si vous ne voulez pas suivre les images
-# images/
+db/*.txt
+db/*.json
+LadderArchives/*json
+images/*.png
+commandsArchives/*.txt
 
 # Fichiers système
 .DS_Store
@@ -55,6 +27,8 @@ desktop.ini
 *.swo
 *~
 
-# Fichiers spécifiques à votre projet
-commandsArchives/
-solutionEditMessageID
+# Fichiers spécifiques
+batch_process.py
+DiscordID.json
+name_recognition.py
+simple_name_recognition.py
