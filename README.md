@@ -12,9 +12,9 @@ Documentation :
     je dois encore l'ecrire 
 
 
-## Main usage
+![alt text](addScorePost.png) ![alt text](LadderPost.png)
 
-    ![alt text](addScorePost.png) ![alt text](LadderPost.png)
+## Main usage
     -> Players who participate to an in game activities like percepteur attack or defense can send their score to the bot using the "/addscore" command.
     the bot receive data from the discord user, manage the score and update the ladder.
     
