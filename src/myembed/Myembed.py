@@ -50,7 +50,8 @@ def create_embeds_ranking(players):
     embed.add_field(name="*Top 100 des combattants*", value="", inline=False)
 
     group_text = ""  # Stocke les infos de 5 joueurs à la fois
-    for i, player in enumerate(players[:100]):  # Limite directement à 100 joueurs
+    PVP_Players = [player for player in players if player.PVP == True]
+    for i, player in enumerate(PVP_Players[:100]):  # Limite directement à 100 joueurs
         if i % 5 == 0 and i != 0:
             # Ajoute le texte accumulé et réinitialise
             embed.add_field(name=f"**Places {i - 4} à {i}**", value=group_text, inline=False)

@@ -1,6 +1,6 @@
 class player :
   def __init__(self, pseudo : str, point : int, rank : int, arobase : str, discord_id : int, exoScore : int = 0, exoRank : int = 0,
-                victoryRatio : int = 0, defeatRatio : int = 0, all_time_point : int = 0) :
+                victoryRatio : int = 0, defeatRatio : int = 0, all_time_point : int = 0, PVP : bool = False) :
     self.pseudo = pseudo
     self.arobase = arobase
     self.point = point
@@ -11,6 +11,7 @@ class player :
     self.victoryRatio = victoryRatio
     self.defeatRatio = defeatRatio
     self.all_time_point = all_time_point
+    self.PVP = PVP
 
   def addScore(self, point : int) -> None:
     self.point += point
@@ -23,6 +24,11 @@ class player :
   
   def clearRank(self) -> None:
     self.rank = 0
+
+  def clearPVP(self) -> None:
+    self.point = 0
+    self.rank = 0
+    self.PVP = False
 
   def addVictoryRatio(self) -> None:
     self.victoryRatio += 1

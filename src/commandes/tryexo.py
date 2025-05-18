@@ -11,7 +11,7 @@ class tryExoCog(commands.Cog):
 
     @app_commands.command(name="tryexo", description="Essayer de faire un exo")
     async def try_exo(self, interaction: discord.Interaction) -> None:
-        from utils.utils import log_db, target_exist
+        from utils.utils import log_db, target_exist, createExoRanking
         from myembed.Myembed import create_embeds_ranking, create_embeds_exo_ranking
         from player import players
         import random

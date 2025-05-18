@@ -42,10 +42,8 @@ async def on_ready():
   global LadderMessageId
   channel = bot.get_channel(LadderChannelId)
 
-  #if not client.synced:  # Vérifie si la synchronisation a déjà eu lieu
   await load_commands(bot)
   await bot.tree.sync()
-  #client.synced = True  # Mets à jour le statut de la synchronisation
   print("Commands synced")
   try:
     # Essayer d'abord de charger depuis le fichier JSON
@@ -149,8 +147,7 @@ async def clearLadder(ctx: commands.Context) -> None:
     await ctx.send(f"❗ Erreur lors de la copie du ladder as {e}")
   
   for player in players :
-    player.clearPoint()
-    player.clearRank()
+    player.clearPVP()
   log_db(players)
   ranking_embed = create_embeds_ranking(players)
   embed_message = getEmbedMessage()
@@ -177,7 +174,6 @@ async def sync(ctx: commands.Context, guilds: commands.Greedy[discord.Object], s
     await ctx.send(f"synced {len(synced)} commands {'globally' if spec is None else 'to the current guild.'}")
     for command in bot.tree.get_commands():
       print(f"Nom de la commande: {command.name}, Description: {command.description}")
-    return
     ret = 0
     for guild in guilds: 
       try:

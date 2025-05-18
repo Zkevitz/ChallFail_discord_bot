@@ -1,1 +1,11 @@
-CHANGER LE FICHIER DB EN JSON POUR PEUT ETRE Y STOCKER LES OBJECTS DISCORD
+-> trouver le moyen le plus optimiser d'installer redis cache dans la logique du bot
+-> cree la possibilite de rentre une selection de joueur dans la commande /adminpoint
+-> cree la possibilite de supprimer la participation d'un joueur via /adminpoint
+
+
+
+
+
+
+OVERKILL?: 
+-> installer une db sql 

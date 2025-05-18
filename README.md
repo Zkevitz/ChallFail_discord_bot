@@ -1,5 +1,9 @@
 # ChallFail_discord_bot
-This Python script is a Discord bot designed to keep track of the challenge scores for you and your friends during your Dofus adventures. The bot allows players to compete in a friendly challenge
+This Python script is a Discord bot designed to keep track of the challenge scores for you and your friends during your Dofus adventures. The bot allows players to compete in a friendly challenge, user can send their own score and keep an overview of the ladder. Admin can manage the score of the players if needed.
+
+In addition the bot also have a "/tryexo" command to simulate a forgemagie case (based on the 1% success rate) and a "/exoscore" command to show the players with the lowest success rate.
+
+the command "/profile" allow to show the global profile of a player.
 
 
 Documentation : 
@@ -7,6 +11,14 @@ Documentation :
 ## Installation 
     je dois encore l'ecrire 
 
+
+## Main usage
+
+    ![alt text](addScorePost.png)
+    -> Players who participate to an in game activities like percepteur attack or defense can send their score to the bot using the "/addscore" command.
+    the bot receive data from the discord user, manage the score and update the ladder.
+    
+    -> In case of input error, the bot allow you to cancel each interaction using the "cancel" button
 
 ## commande prefix : '!' 
         !setmessage --> Redefinis le message statique qui accueillera le ladderr 

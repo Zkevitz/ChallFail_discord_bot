@@ -69,11 +69,13 @@ class AddScoreCog(commands.Cog):
             i = target_exist(players, member.mention)
             if (i >= 0):
                 # Si le joueur existe déjà, le recupere
+                if players[i].PVP == False:
+                    players[i].PVP = True
                 player_obj = players[i]
             else:
                 # Si le joueur n'existe pas, crée un nouveau joueur et ajoute-le à la liste
                 if member:  # Vérifie si le membre existe dans le serveur
-                    player_obj = Player(target_name, 0, 0, member.mention, member.id, 0, 0, 0, 0, 0)
+                    player_obj = Player(target_name, 0, 0, member.mention, member.id, 0, 0, 0, 0, 0, True)
                     players.append(player_obj)
             player_obj.addScore(amount_of_point)
             if victory:

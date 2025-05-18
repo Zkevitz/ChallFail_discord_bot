@@ -22,7 +22,8 @@ def player_to_dict(player_obj):
         "exoRank": player_obj.exoRank,
         "victoryRatio": player_obj.victoryRatio,
         "defeatRatio": player_obj.defeatRatio,
-        "all_time_point": player_obj.all_time_point
+        "all_time_point": player_obj.all_time_point,
+        "PVP": player_obj.PVP
     }
 
 def dict_to_player(player_dict):
@@ -37,7 +38,8 @@ def dict_to_player(player_dict):
         exoRank=player_dict["exoRank"],
         victoryRatio=player_dict.get("victoryRatio", 0),
         defeatRatio=player_dict.get("defeatRatio", 0),
-        all_time_point=player_dict.get("all_time_point", 0)
+        all_time_point=player_dict.get("all_time_point", 0),
+        PVP=player_dict.get("PVP", False)
     )
 
 def save_players_to_json(players: List[player], filepath='db/player_db.json'):

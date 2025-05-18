@@ -55,27 +55,27 @@ class AdminPointCog(commands.Cog):
         with open("commandsArchives/Admincommand.txt", "a") as fichier:
             fichier.write(f"{interaction.user.name} as {interaction.user.top_role} asked for /Adminpoint command for {action} at {interaction.created_at}\n")
 
-    # Fonctions d'autocomplétion locales
-    async def target_autocomplete(self, interaction: discord.Interaction, current: str) -> list:
-        # Récupérer les membres du serveur
-        members = interaction.guild.members
-        # Filtrer les membres en fonction de la chaîne entrée par l'utilisateur
-        options = [member.display_name for member in members if member.display_name and current.lower() in member.display_name.lower()] 
-        data = []
-        # Limiter le nombre de suggestions
-        for member_name in options[:10]:
-            data.append(app_commands.Choice(name=member_name, value=member_name))
-        return data
+    # # Fonctions d'autocomplétion locales
+    # async def target_autocomplete(self, interaction: discord.Interaction, current: str) -> list:
+    #     # Récupérer les membres du serveur
+    #     members = interaction.guild.members
+    #     # Filtrer les membres en fonction de la chaîne entrée par l'utilisateur
+    #     options = [member.display_name for member in members if member.display_name and current.lower() in member.display_name.lower()] 
+    #     data = []
+    #     # Limiter le nombre de suggestions
+    #     for member_name in options[:10]:
+    #         data.append(app_commands.Choice(name=member_name, value=member_name))
+    #     return data
     
-    async def admin_autocomplete(self, interaction: discord.Interaction, current: str):
-        # Importer ici pour éviter les importations circulaires
-        from utils.utils import ADMIN_CHOICES
-        # Filtrer les options en fonction de ce que l'utilisateur tape
-        filtered_choices = [
-            app_commands.Choice(name=action, value=action)
-            for action in ADMIN_CHOICES if current.lower() in action.lower()
-        ]
-        return filtered_choices[:5]
+    # async def admin_autocomplete(self, interaction: discord.Interaction, current: str):
+    #     # Importer ici pour éviter les importations circulaires
+    #     from utils.utils import ADMIN_CHOICES
+    #     # Filtrer les options en fonction de ce que l'utilisateur tape
+    #     filtered_choices = [
+    #         app_commands.Choice(name=action, value=action)
+    #         for action in ADMIN_CHOICES if current.lower() in action.lower()
+    #     ]
+    #     return filtered_choices[:5]
 
 async def setup(bot):
     await bot.add_cog(AdminPointCog(bot))
