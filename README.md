@@ -6,34 +6,43 @@ In addition the bot also have a "/tryexo" command to simulate a forgemagie case 
 the command "/profile" allow to show the global profile of a player.
 
 
-Documentation : 
-
 ## Installation 
     je dois encore l'ecrire 
 
 
-![alt text](addScorePost.png) ![alt text](LadderPost.png)
-
 ## Main usage
-    -> Players who participate to an in game activities like percepteur attack or defense can send their score to the bot using the "/addscore" command.
+    -> Players who participate to an in game activities
+    like percepteur attack or defense can
+    send their score to the bot using the "/addscore" command.
     the bot receive data from the discord user, manage the score and update the ladder.
     
-    -> In case of input error, the bot allow you to cancel each interaction using the "cancel" button or every user with an admin role can use the "/adminpoint" command to add or remove points to a player.
+    -> In case of input error, the bot allow you 
+    to cancel each interaction using the "cancel" 
+    button or every user with an admin role can 
+    use the "/adminpoint" command to add or remove points to a specific player.
 
-## commande prefix : '!' 
-        !setmessage --> Redefinis le message statique qui accueillera le ladderr 
+    -> Players can get their full statistique using the "/profile" command.
+
+![alt text](addScorePost.png) ![alt text](LadderPost.png)
+
+## Exo Features
+    -> "/tryexo" command allow to simulate a forgemagie case (based on the 1% success rate)
+    and a "/exoscore" command to show the players with the lowest success rate.
+
+## commande prefix : '!'
+        !setmessage --> Redifine the static message that will display the ladder
         
-        !clearLadder --> supprime l'ensemble des données du ladder (vide la base de données et les variables du bot)
+        !clearLadder --> Delete all data from the ladder (reset points and rank of each player)
 
-        !clearchannel --> principalement utilitaire supprime l'ensemble des messages du channel dans le quels vous etes ATTENTION : discord limite le nombre de message supprimer a 100 par appel
+        !clearchannel --> Mainly utility command to clear a channel of messages (discord limits the number of messages deleted to 100 per call)
 
-        !sync [guilds] [spec] --> synchronise les commandes slash avec Discord
-            [guilds] --> (optionnel) IDs des serveurs à synchroniser
-            [spec] --> (optionnel) modificateur de synchronisation:
-                - sans modificateur: synchronise globalement
-                - "~": synchronise avec le serveur actuel uniquement
-                - "*": copie les commandes globales vers le serveur actuel
-                - "^": supprime toutes les commandes du serveur actuel
+        !sync [guilds] [spec] --> Synchronize slash commands with Discord
+            [guilds] --> (optional) IDs of servers to synchronize
+            [spec] --> (optional) synchronization modifier:
+                - without modifier: synchronizes globally
+                - "~": synchronizes with the current server only
+                - "*": copies global commands to the current server
+                - "^": delete all commands from the current server
 
 ## commande slash 
 
@@ -41,23 +50,40 @@ Documentation :
 
         /addscore [event] [victory] [nb_of_opponent] [image] [image2] [joueur1] [joueur2*] [joueur3*] [joueur4*] [joueur5*] :
 
-            [event] --> rendre les evenements configurable
-            [victory : boolean] --> True or False (victoire ou defaite)
-            [nb_of_opponent] --> 0, 1, 2, 3, 4, 5 (nombre d'adversaire)
-            [image] --> image de l'attaque/defense
-            [image2] --> image de l'attaque/defense
-            [joueur1->5] --> pseudo discord des joueurs participants
+            [event] --> Make events configurable
+            [victory : boolean] --> True or False (victory or defeat)
+            [nb_of_opponent] --> 0, 1, 2, 3, 4, 5 (number of opponents)
+            [image] --> image of the attack/defense
+            [image2] --> image of the attack/defense
+            [joueur1->5] --> discord pseudo of the players
 
         /adminpoint [action] [target] [nb_de_points] :
-            [action] --> Ajouter des points a un joueur ou Retirer des points a un joueur
-            [target] --> pseudo discord des joueurs participants
-            [nb_de_points] --> nombre de points a ajouter ou retirer
+            [action] --> Add or remove points to a player
+            [target] --> discord pseudo of the player
+            [nb_de_points] --> number of points to add or remove
 
-        /showscore : Affiche le tableau des scores des joueurs
-        /exoscore : Affiche le tableau des scores des joueurs en forgemagie
-        /tryexo : Permet de lancer une petite simulation de tentative de exo   avec une proba a 1%
+        /showscore : Show the ladder
+        /exoscore : Show the exoscore
+        /tryexo : Launch a small simulation of a forgemagie with a 1% success rate
+        /profile [target*] : Show the profile of a player or your own if no target is specified
         
-
-        
+## Project structure
+.
+├── DiscordID.json
+├── LadderArchives
+│   └── LadderArchives2025-05-17_16-56-04.json
+├── commandsArchives
+│   └── Admincommand.txt
+├── db
+│   ├── player_db.json
+│   └── player_db.txt
+├── dockerfile
+├── images
+├── requirements.txt
+├── src
+│    ├── button
+│    ├── commandes
+│    ├── myembed
+│    └── utils
             
 ![alt text](Untitled__11_.png)
