@@ -14,11 +14,11 @@ Documentation :
 
 ## Main usage
 
-    ![alt text](addScorePost.png)
+    ![alt text](addScorePost.png) ![alt text](LadderPost.png)
     -> Players who participate to an in game activities like percepteur attack or defense can send their score to the bot using the "/addscore" command.
     the bot receive data from the discord user, manage the score and update the ladder.
     
-    -> In case of input error, the bot allow you to cancel each interaction using the "cancel" button
+    -> In case of input error, the bot allow you to cancel each interaction using the "cancel" button or every user with an admin role can use the "/adminpoint" command to add or remove points to a player.
 
 ## commande prefix : '!' 
         !setmessage --> Redefinis le message statique qui accueillera le ladderr 
