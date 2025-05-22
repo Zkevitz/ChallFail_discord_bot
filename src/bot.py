@@ -108,9 +108,9 @@ async def clearchannel(ctx) -> None:
   # if amount > 100:
   #   await ctx.send("🚫 Vous ne pouvez supprimer plus de 100 messages a la fois.")
   #   return
-  deleted = await ctx.channel.purge(limit=None)
-  if len(deleted) > 90 :
-    await ctx.send("✅ Plus de 90 messages supprimés. j'arrete la purge", delete_after= 10)
+  deleted = await ctx.channel.purge(limit=90)
+  if len(deleted) >= 90 :
+    await ctx.send("✅ 90 messages supprimés. j'arrete la purge", delete_after= 10)
     return
   await ctx.send(f"✅ {len(deleted)} messages supprimés.", delete_after=10)
 

@@ -5,13 +5,14 @@ from typing import List
 import shutil
 from datetime import datetime
 
+#Génère un nom de fichier de sauvegarde avec un timestamp
 def generate_backup_filename(base_name="LadderArchives"):
-    """Génère un nom de fichier de sauvegarde avec un timestamp"""
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")  # Format YYYY-MM-DD_HH-MM-SS
     return f"{base_name}/LadderArchives{timestamp}.json"
 
+#Convertit un objet player en dictionnaire pour la sérialisation JSON
 def player_to_dict(player_obj):
-    """Convertit un objet player en dictionnaire pour la sérialisation JSON"""
+
     return {
         "pseudo": player_obj.pseudo,
         "point": player_obj.point,
@@ -26,8 +27,9 @@ def player_to_dict(player_obj):
         "PVP": player_obj.PVP
     }
 
+#Convertit un dictionnaire en objet player
 def dict_to_player(player_dict):
-    """Convertit un dictionnaire en objet player"""
+    
     return player(
         pseudo=player_dict["pseudo"],
         point=player_dict["point"],
@@ -42,8 +44,10 @@ def dict_to_player(player_dict):
         PVP=player_dict.get("PVP", False)
     )
 
+
+#Sauvegarde la liste des joueurs dans un fichier JSON
 def save_players_to_json(players: List[player], filepath='db/player_db.json'):
-    """Sauvegarde la liste des joueurs dans un fichier JSON"""
+
     # Créer le répertoire si nécessaire
     os.makedirs(os.path.dirname(filepath), exist_ok=True)
     
@@ -54,8 +58,10 @@ def save_players_to_json(players: List[player], filepath='db/player_db.json'):
     with open(filepath, 'w', encoding='utf-8') as f:
         json.dump(players_data, f, ensure_ascii=False, indent=2)
 
+
+#Charge la liste des joueurs depuis un fichier JSON
 def load_players_from_json(filepath='db/player_db.json'):
-    """Charge la liste des joueurs depuis un fichier JSON"""
+
     if not os.path.exists(filepath):
         return []
     
@@ -68,9 +74,9 @@ def load_players_from_json(filepath='db/player_db.json'):
     except Exception as e:
         print(f"Erreur lors du chargement du fichier JSON: {e}")
         return []
-
+#Crée une sauvegarde du fichier de base de données des joueurs
 def backup_player_db(source_file='db/player_db.json'):
-    """Crée une sauvegarde du fichier de base de données des joueurs"""
+
     if not os.path.exists(source_file):
         print(f"Le fichier {source_file} n'existe pas, aucune sauvegarde créée.")
         return None
@@ -86,8 +92,9 @@ def backup_player_db(source_file='db/player_db.json'):
         print(f"Erreur lors de la création de la sauvegarde: {e}")
         return None
 
+#Convertit le fichier texte existant en format JSON
 def convert_txt_to_json(txt_file='db/player_db.txt', json_file='db/player_db.json') -> list[player]:
-    """Convertit le fichier texte existant en format JSON"""
+
     players = []
     
     try:

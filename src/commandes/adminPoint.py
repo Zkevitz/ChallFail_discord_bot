@@ -4,8 +4,6 @@ from discord.ext import commands
 from utils.discordutils import target_autocomplete, admin_autocomplete
 from utils.const import ADMIN_CHOICES, EVENT_CHOICES, DIFFICULTY_CHOICES
 
-# Ne pas importer bot directement pour éviter l'importation circulaire
-
 class AdminPointCog(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -18,7 +16,7 @@ class AdminPointCog(commands.Cog):
     async def adminpoint(self, interaction: discord.Interaction, action: str, target: str, nb_de_points: int = 0):
         # Importer ici pour éviter les importations circulaires
         from utils.utils import log_db
-        from player import players
+        from player import players, player_lock
         from myembed.Myembed import create_embeds_ranking, embed_message
         from utils.const import AdminIds
         
@@ -37,7 +35,8 @@ class AdminPointCog(commands.Cog):
             return
 
         if action in ["Ajouter des points a un joueur", "Retirer des points a un joueur"]:
-            player = next((p for p in players if p.pseudo == target), None)
+            with player_lock:
+              player = next((p for p in players if p.pseudo == target), None)
             if player:
                 if action == "Ajouter des points a un joueur":
                     player.addScore(nb_de_points)
@@ -51,31 +50,12 @@ class AdminPointCog(commands.Cog):
                 await interaction.response.send_message(f"joueur {target} a bien recu {sign_char}{nb_de_points}")
             else:
                 await interaction.response.send_message(f"joueur {target} n'a pas ete trouvé dans les participants")
-        
+        #elif action == "Suprimer la participation d'un joueur":
+            
+            
         with open("commandsArchives/Admincommand.txt", "a") as fichier:
             fichier.write(f"{interaction.user.name} as {interaction.user.top_role} asked for /Adminpoint command for {action} at {interaction.created_at}\n")
 
-    # # Fonctions d'autocomplétion locales
-    # async def target_autocomplete(self, interaction: discord.Interaction, current: str) -> list:
-    #     # Récupérer les membres du serveur
-    #     members = interaction.guild.members
-    #     # Filtrer les membres en fonction de la chaîne entrée par l'utilisateur
-    #     options = [member.display_name for member in members if member.display_name and current.lower() in member.display_name.lower()] 
-    #     data = []
-    #     # Limiter le nombre de suggestions
-    #     for member_name in options[:10]:
-    #         data.append(app_commands.Choice(name=member_name, value=member_name))
-    #     return data
-    
-    # async def admin_autocomplete(self, interaction: discord.Interaction, current: str):
-    #     # Importer ici pour éviter les importations circulaires
-    #     from utils.utils import ADMIN_CHOICES
-    #     # Filtrer les options en fonction de ce que l'utilisateur tape
-    #     filtered_choices = [
-    #         app_commands.Choice(name=action, value=action)
-    #         for action in ADMIN_CHOICES if current.lower() in action.lower()
-    #     ]
-    #     return filtered_choices[:5]
 
 async def setup(bot):
     await bot.add_cog(AdminPointCog(bot))

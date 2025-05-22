@@ -30,20 +30,21 @@ class CancelButton(discord.ui.Button):
         return
 
     #print(dir(interaction))
-    await self.author.send(f"Ton post datant du {datetime.now()} a ete annule par {interaction.user}")
+    await self.author.send(f"Ton post datant du {datetime.now().strftime('%Y-%m-%d_%H-%M-%S')} a ete annule par {interaction.user}")
 
 
     for participant in self.participants :
-      participant.all_time_point -= self.gain
-      participant.point -= self.gain
-      if participant.point < 0 :
-        participant.point = 0
-      if participant.all_time_point < 0 :
-        participant.all_time_point = 0
-      if not self.isVictory :
-        participant.defeatRatio -= 1
-      elif self.isVictory :
-        participant.victoryRatio -= 1
+      with participant.lock:
+        participant.all_time_point -= self.gain
+        participant.point -= self.gain
+        if participant.point < 0 :
+          participant.point = 0
+        if participant.all_time_point < 0 :
+          participant.all_time_point = 0
+        if not self.isVictory :
+          participant.defeatRatio -= 1
+        elif self.isVictory :
+          participant.victoryRatio -= 1
 
 
     log_db(players)

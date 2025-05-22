@@ -3,6 +3,8 @@ from player import player
 from typing import List
 import os
 from .json_utils import save_players_to_json
+import discord
+from discord import Interaction
 
 def generate_backup_filename(base_name="LadderArchives") -> str:
     timestamp = datetime.now().strftime("%Y-%m-%d_%H-%M-%S")  # Format YYYY-MM-DD_HH-MM-SS
@@ -104,11 +106,14 @@ def calculate_point(nb_of_opponent : int, event : str, victory : bool, nb_of_par
 
   return point
 
-def get_player_by_name(name : str, players : list[player]) -> player | None:
-  for player in players :
-    if player.pseudo.lower() == name.lower():
-      return player
-  return None
+async def get_player_by_name(interaction : discord.Interaction, name : str, players : list[player]) -> player | None:
+  
+  match_member = interaction.guild.get_member_named(name)
+  if match_member is None:
+    return None
+  return match_member
+  
+      
 
 def target_exist(players : list[player], target_name : str) -> int:
   i = 0

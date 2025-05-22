@@ -19,13 +19,11 @@ class profileCog(commands.Cog):
         if target is None :
           target = interaction.user.mention
         else:
-          selected_player = get_player_by_name(target, players)
+          selected_player = await get_player_by_name(interaction, target, players)
           if selected_player is None:
             await interaction.followup.send("Joueur non trouvé")
             return
-          target = selected_player.arobase
-        print(target)
-        i = target_exist(players, target)
+        i = target_exist(players, selected_player.mention)
         if i >= 0 :
           embed = await create_profile_embed(players[i], interaction)
           await interaction.followup.send(embed=embed)

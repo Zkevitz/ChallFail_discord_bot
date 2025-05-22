@@ -42,9 +42,10 @@ class AddScoreCog(commands.Cog):
         # Accéder aux fonctions et variables via le bot
         from utils.utils import calculate_point, target_exist, log_db
         from myembed.Myembed import create_embeds, create_embeds_ranking, getEmbedMessage
-        from player import player as Player, players
+        from player import player as Player, players, get_player_with_lock, add_player_with_lock
         from button.CancelView import CancelView
         from utils.const import CommandChannelId
+
         
         await interaction.response.defer()
 
@@ -57,6 +58,11 @@ class AddScoreCog(commands.Cog):
             return
 
         targets = [joueur1, joueur2, joueur3, joueur4, joueur5]
+
+        for target_name in targets : 
+            if targets.count(target_name) > 1:
+                await interaction.followup.send("Un joueur est mentionné plusieurs fois !", ephemeral=True)
+                return
         valid_targets_count = sum(1 for joueur in targets if joueur is not None)
         amount_of_point = calculate_point(nb_of_opponent, event, victory, valid_targets_count)
 
@@ -69,14 +75,15 @@ class AddScoreCog(commands.Cog):
             i = target_exist(players, member.mention)
             if (i >= 0):
                 # Si le joueur existe déjà, le recupere
-                if players[i].PVP == False:
-                    players[i].PVP = True
-                player_obj = players[i]
+                player_obj = get_player_with_lock(i)
+                if player_obj:
+                  if player_obj.PVP == False:
+                    player_obj.TurnOnPVP()
             else:
                 # Si le joueur n'existe pas, crée un nouveau joueur et ajoute-le à la liste
                 if member:  # Vérifie si le membre existe dans le serveur
                     player_obj = Player(target_name, 0, 0, member.mention, member.id, 0, 0, 0, 0, 0, True)
-                    players.append(player_obj)
+                    add_player_with_lock(player_obj)
             player_obj.addScore(amount_of_point)
             if victory:
                 player_obj.addVictoryRatio()
