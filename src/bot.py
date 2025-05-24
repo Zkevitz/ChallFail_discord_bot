@@ -10,7 +10,7 @@ from typing import Optional, Literal
 from time import sleep
 from datetime import datetime, timedelta
 from myembed.Myembed import setEmbedMessage, getEmbedMessage, create_embeds_ranking, create_embeds, create_embeds_exo_ranking, create_profile_embed
-from player import player, players
+from player import player, players, player_lock
 from redis_cache import cache  # Importer le module Redis cache
 from utils.const import LadderChannelId, errorChannelId, CommandChannelId, AdminIds
 
@@ -114,7 +114,15 @@ async def clearchannel(ctx) -> None:
     return
   await ctx.send(f"✅ {len(deleted)} messages supprimés.", delete_after=10)
 
- 
+@bot.command()
+async def resetGlobalStat(ctx : commands.Context) -> None:
+  with player_lock:
+    for player in players :
+      with player.lock:
+        player.victoryRatio = 0
+        player.defeatRatio = 0
+        player.all_time_point = 0
+  log_db(players)
 
 @bot.command()
 async def clearLadder(ctx: commands.Context) -> None:
