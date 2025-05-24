@@ -106,7 +106,7 @@ def calculate_point(nb_of_opponent : int, event : str, victory : bool, nb_of_par
 
   return point
 
-async def get_player_by_name(interaction : discord.Interaction, name : str, players : list[player]) -> player | None:
+async def get_player_by_name(interaction : discord.Interaction, name : str) -> player | None:
   
   match_member = interaction.guild.get_member_named(name)
   if match_member is None:

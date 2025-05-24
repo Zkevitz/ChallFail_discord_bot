@@ -23,7 +23,7 @@ def create_embeds(players, image, event, gain, victory, difficulty, participants
   else :
     emojiResult = "❌"
     embedColor = 0xee5a3c
-  embed = discord.Embed(title=f"{emojiResult}{event} enregistrée", color=embedColor, url=image, timestamp=datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
+  embed = discord.Embed(title=f"{emojiResult}{event} enregistrée", color=embedColor, url=image, timestamp=datetime.now())
   embed.add_field(name=f"*Difficulté: {difficulty}({difficulty} adversaires)*", value="", inline=True)
   embed.add_field(name=f"Résultat: {emojiResult}", value="", inline=False)
   embed.add_field(name="📊 **Points gagnés**", value="", inline=False)
@@ -47,7 +47,7 @@ def create_embeds(players, image, event, gain, victory, difficulty, participants
 def create_embeds_ranking(players):
     players = createPlayerRanking(players)
 
-    embed = discord.Embed(title="🏆 CLASSEMENT PVP AGEIN", color=0x72d345, timestamp=datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
+    embed = discord.Embed(title="🏆 CLASSEMENT PVP AGEIN", color=0x72d345, timestamp=datetime.now())
     embed.add_field(name="*Top 100 des combattants*", value="", inline=False)
 
     group_text = ""  # Stocke les infos de 5 joueurs à la fois
@@ -73,7 +73,7 @@ def create_embeds_ranking(players):
 def create_embeds_exo_ranking(players):
     players = createExoRanking(players)
 
-    embed = discord.Embed(title="🏆 CLASSEMENT EXO", color=0x72d345, timestamp=datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
+    embed = discord.Embed(title="🏆 CLASSEMENT EXO", color=0x72d345, timestamp=datetime.now())
     embed.add_field(name="*Top 10 des pires forgemages*", value="", inline=False)
 
     group_text = ""  # Stocke les infos de 5 joueurs à la fois
@@ -100,7 +100,7 @@ async def create_profile_embed(player : player, interaction : discord.Interactio
     with player.lock:
       color_ranks = {1: discord.Color.gold(), 2: discord.Color.light_grey(), 3: discord.Color(0xCD7F32)}
       color = color_ranks.get(player.rank, discord.Color.blue())
-      embed = discord.Embed(title=f"Profil de {player.pseudo}", color=color, timestamp=datetime.now().strftime("%Y-%m-%d_%H-%M-%S"))
+      embed = discord.Embed(title=f"Profil de {player.pseudo}", color=color, timestamp=datetime.now())
     
       discord_user = await interaction.guild.fetch_member(player.discord_id)
       if(hasattr(discord_user, "avatar") and discord_user.avatar) :

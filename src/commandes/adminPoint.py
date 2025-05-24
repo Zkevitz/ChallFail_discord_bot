@@ -15,9 +15,9 @@ class AdminPointCog(commands.Cog):
     @app_commands.autocomplete(action=admin_autocomplete)
     async def adminpoint(self, interaction: discord.Interaction, action: str, target: str, nb_de_points: int = 0):
         # Importer ici pour éviter les importations circulaires
-        from utils.utils import log_db
+        from utils.utils import log_db, get_player_by_name, target_exist
         from player import players, player_lock
-        from myembed.Myembed import create_embeds_ranking, embed_message
+        from myembed.Myembed import create_embeds_ranking, getEmbedMessage
         from utils.const import AdminIds
         
         is_admin = False
@@ -36,16 +36,19 @@ class AdminPointCog(commands.Cog):
 
         if action in ["Ajouter des points a un joueur", "Retirer des points a un joueur"]:
             with player_lock:
-              player = next((p for p in players if p.pseudo == target), None)
+              player = await get_player_by_name(interaction, target)
             if player:
-                if action == "Ajouter des points a un joueur":
-                    player.addScore(nb_de_points)
-                else:
-                    sign_char = '-'
-                    negative_score = -abs(nb_de_points)
-                    player.addScore(negative_score)
+                i = target_exist(players, player.mention)
+                if i >= 0 :
+                    if action == "Ajouter des points a un joueur":
+                        players[i].addScore(nb_de_points)
+                    else:
+                        sign_char = '-'
+                        negative_score = -abs(nb_de_points)
+                        players[i].addScore(negative_score)
                 log_db(players)
                 ranking_embed = create_embeds_ranking(players)
+                embed_message = getEmbedMessage()
                 await embed_message.edit(embed=ranking_embed)
                 await interaction.response.send_message(f"joueur {target} a bien recu {sign_char}{nb_de_points}")
             else:
