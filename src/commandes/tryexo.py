@@ -36,19 +36,20 @@ class tryExoCog(commands.Cog):
           i += 1
           if i % 5 == 0:
             await message.edit(content=f"nombres de tenta = {i}")
-  
-            if user_index >= 0 :
-              if i > players[user_index].exoScore :
-                players[user_index].SetExoScore(i)
-                createExoRanking(players)
-                await interaction.followup.send(f"{interaction.user.mention} a battu son record 🎉\n Nouveaux Score -> {i} Tentas et obtiens le rang {players[user_index].exoRank}")
-            else:
-              if interaction.user:  # Vérifie si le membre existe dans le serveur
-                new_player = player(interaction.user.name, 0, 0, interaction.user.mention, interaction.user.id, i , 0)
-                new_player.Print()
-                players.append(new_player)
-                createExoRanking(players)
-                await interaction.followup.send(f"{interaction.user.mention} a battu son record 🎉\n Nouveaux Score -> {i} Tentas et obtiens le rang {new_player.exoRank}")
+
+        with player_lock:
+          if user_index >= 0 :
+            if i > players[user_index].exoScore :
+              players[user_index].SetExoScore(i)
+              createExoRanking(players)
+              await interaction.followup.send(f"{interaction.user.mention} a battu son record 🎉\n Nouveaux Score -> {i} Tentas et obtiens le rang {players[user_index].exoRank}")
+          else:
+            if interaction.user:  # Vérifie si le membre existe dans le serveur
+              new_player = player(interaction.user.name, 0, 0, interaction.user.mention, interaction.user.id, i , 0)
+              new_player.Print()
+              players.append(new_player)
+              createExoRanking(players)
+              await interaction.followup.send(f"{interaction.user.mention} a battu son record 🎉\n Nouveaux Score -> {i} Tentas et obtiens le rang {new_player.exoRank}")
         log_db(players)
 
 async def setup(bot):
